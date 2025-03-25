@@ -27,28 +27,36 @@ namespace ExcelOffers
 
 
 
+                    string GetCellValue(ExcelWorksheet sheet, int row, int col)
+                        => sheet.Cells[row, col].Value?.ToString() ?? "Sem dados";
+
                     for (int i = 2; i < rowCount; i++)
                     {
-                        int aux = 0;
+                        string shipName = GetCellValue(sheet, i, 1);
+                        string productName = GetCellValue(sheet, i, 2);
+                        string portEmbarkDesembark = GetCellValue(sheet, i, 3);
+                        string destinyProduct = GetCellValue(sheet, i, 4);
+                        string embarkDateStr = GetCellValue(sheet, i, 5);
+                        string cabinCategory = GetCellValue(sheet, i, 6);
+                        string cabinClass = GetCellValue(sheet, i, 7);
+                        string fromToValueStr = GetCellValue(sheet, i, 8);
+                        string fareSalePerPaxStr = GetCellValue(sheet, i, 9);
+                        string discountStr = GetCellValue(sheet, i, 10);
+                        string nCCFPerPaxStr = GetCellValue(sheet, i, 11);
+                        string portFarePerPaxStr = GetCellValue(sheet, i, 12);
+                        string totalFarePerPaxStr = GetCellValue(sheet, i, 13);
 
-                        string shipName = sheet.Cells[i, 1].Value?.ToString() ?? "Sem dados";
-                        string productName = sheet.Cells[i, 2].Value?.ToString() ?? "Sem dados";
-                        string cabinCategory = sheet.Cells[i, 6].Value?.ToString() ?? "Sem dados";
-                        string cabinClass = sheet.Cells[i, 7].Value?.ToString() ?? "Sem dados";
+                        DateTime embarkDate = DateTime.Parse(embarkDateStr);
+                        decimal fromToValue = decimal.Parse(fromToValueStr);
+                        decimal fareSalePerPax = decimal.Parse(fareSalePerPaxStr);
+                        double discount = double.Parse(discountStr);
+                        decimal nCCFPerPax = decimal.Parse(nCCFPerPaxStr);
+                        decimal portFarePerPax = decimal.Parse(portFarePerPaxStr);
+                        decimal totalFarePerPax = decimal.Parse(totalFarePerPaxStr);
 
-                        string portEmbarkDesembark = sheet.Cells[i, 3].Value?.ToString() ?? "Sem dados";
-                        string destinyProduct = sheet.Cells[i, 4].Value?.ToString() ?? "Sem dados";
-                        DateTime embarkDate = DateTime.Parse(sheet.Cells[i, 5].Value?.ToString() ?? "Sem dados");
-
-                        decimal fromToValue = decimal.Parse(sheet.Cells[i, 8].Value?.ToString() ?? "Sem dados");
-                        decimal fareSalePerPax = decimal.Parse(sheet.Cells[i, 9].Value?.ToString() ?? "Sem dados");
-                        double discount = double.Parse(sheet.Cells[i, 10].Value?.ToString() ?? "Sem dados");
-                        decimal nCCFPerPax = decimal.Parse(sheet.Cells[i, 11].Value?.ToString() ?? "Sem dados");
-                        decimal portFarePerPax = decimal.Parse(sheet.Cells[i, 12].Value?.ToString() ?? "Sem dados");
-                        decimal totalFarePerPax = decimal.Parse(sheet.Cells[i, 13].Value?.ToString() ?? "Sem dados");
-
-
-                        tariff.Add(
+                        // Processa os dados conforme necessário...
+                    
+                    tariff.Add(
                             new Product(
                                 shipName,
                                 productName,
