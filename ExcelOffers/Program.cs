@@ -35,12 +35,13 @@ namespace ExcelOffers
 
                     var take = resultFilter.Take(10).Select(t => t);
 
-
                     foreach (var item in take)
                     {
                         Console.WriteLine(item);
                         Console.WriteLine();
                     }
+
+
 
 
                 }

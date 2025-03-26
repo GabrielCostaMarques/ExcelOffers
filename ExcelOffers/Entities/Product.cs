@@ -33,7 +33,9 @@ namespace ExcelOffers.Entities
                 + " - "
                 + ProductName
                 + " - "
-                + Pricing.Discount.ToString("F0", CultureInfo.InvariantCulture)+"%"
+                + CabinClass
+                + " - "
+                + Pricing.Discount.ToString("F0", CultureInfo.InvariantCulture)
                 + " - "
                 + Pricing.FromToValue.ToString("F2", CultureInfo.InvariantCulture)
                 + " - "
