@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,12 +30,14 @@ namespace ExcelOffers.Entities
         public override string ToString()
         {
             return ShipName
-                + ", "
+                + " - "
                 + ProductName
-                + ", "
-                + Pricing.FromToValue
-                +", "
-                +Pricing.TotalFarePerPax;
+                + " - "
+                + Pricing.Discount.ToString("F0", CultureInfo.InvariantCulture)+"%"
+                + " - "
+                + Pricing.FromToValue.ToString("F2", CultureInfo.InvariantCulture)
+                + " - "
+                + Pricing.TotalFarePerPax.ToString("F2", CultureInfo.InvariantCulture);
         }
     }
 }
