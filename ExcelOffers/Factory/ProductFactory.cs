@@ -14,24 +14,18 @@ namespace ExcelOffers.Factory
             string productName = CellValue.GetCellValue(sheet, row, ref col);
             string portEmbarkDesembark = CellValue.GetCellValue(sheet, row, ref col);
             string destinyProduct = CellValue.GetCellValue(sheet, row, ref col);
-            string embarkDateStr = CellValue.GetCellValue(sheet, row, ref col);
+            DateTime embarkDate = DateTime.Parse(CellValue.GetCellValue(sheet, row, ref col));
             string cabinCategory = CellValue.GetCellValue(sheet, row, ref col);
             string cabinClass = CellValue.GetCellValue(sheet, row, ref col);
 
-            string fromToValueStr = CellValue.GetCellValue(sheet, row, ref col);
-            string fareSalePerPaxStr = CellValue.GetCellValue(sheet, row, ref col);
-            string discountStr = CellValue.GetCellValue(sheet, row, ref col);
-            string nCCFPerPaxStr = CellValue.GetCellValue(sheet, row, ref col);
-            string portFarePerPaxStr = CellValue.GetCellValue(sheet, row, ref col);
-            string totalFarePerPaxStr = CellValue.GetCellValue(sheet, row, ref col);
 
-            DateTime embarkDate = DateTime.Parse(embarkDateStr);
-            decimal fromToValue = decimal.Parse(fromToValueStr);
-            decimal fareSalePerPax = decimal.Parse(fareSalePerPaxStr);
-            double discount = double.Parse(discountStr);
-            decimal nCCFPerPax = decimal.Parse(nCCFPerPaxStr);
-            decimal portFarePerPax = decimal.Parse(portFarePerPaxStr);
-            decimal totalFarePerPax = decimal.Parse(totalFarePerPaxStr);
+
+            decimal fromToValue = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
+            decimal fareSalePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
+            double discount = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
+            decimal nCCFPerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
+            decimal portFarePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
+            decimal totalFarePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
 
             Product product = new Product(
                 shipName,

@@ -20,20 +20,23 @@ namespace ExcelOffers
                 {
                     List<Product> tariff = new();
 
+                    Console.Write("How Many offers: ");
+                    int qtdOffers = int.Parse(Console.ReadLine());
+
                     var sheet = packeage.Workbook.Worksheets[0];
-                    int rowCount = sheet.Dimension.Rows;
+                    
 
 
-                    for (int i = 2; i < rowCount; i++)
+                    for (int i = 2; i < qtdOffers; i++)
                     {
-                        tariff.Add(ProductFactory.CreateProductFromRow(sheet,tariff, i));
+                        tariff.Add(ProductFactory.CreateProductFromRow(sheet, tariff, i));
                     }
 
 
                     var resultFilter = tariff.OrderByDescending(t => t.Pricing.Discount).ThenBy(t => t.Localization.EmbarkDate);
 
 
-                    var take = resultFilter.Take(10).Select(t => t);
+                    var take = resultFilter.Take(qtdOffers).Select(t => t);
 
                     foreach (var item in take)
                     {
