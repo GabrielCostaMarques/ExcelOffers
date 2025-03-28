@@ -11,8 +11,4 @@
     <PackageReference Include="EPPlus" Version="7.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Filters\" />
-  </ItemGroup>
-
 </Project>

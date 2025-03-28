@@ -2,6 +2,7 @@
 using System.Data;
 using ExcelOffers.Entities;
 using ExcelOffers.Factory;
+using ExcelOffers.Filters;
 using OfficeOpenXml;
 
 
@@ -14,7 +15,7 @@ namespace ExcelOffers
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios R11 - V5.xlsx")))
+            using (var package = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios R11 - V5.xlsx")))
             {
                 try
                 {
@@ -23,27 +24,56 @@ namespace ExcelOffers
                     Console.Write("How Many offers: ");
                     int qtdOffers = int.Parse(Console.ReadLine());
 
-                    var sheet = packeage.Workbook.Worksheets[0];
-                    
+                    var sheet = package.Workbook.Worksheets[0];
+                    int rowCount = sheet.Dimension.Rows;
 
 
-                    for (int i = 2; i < qtdOffers; i++)
+                   
+                    for (int i = 2; i <= rowCount; i++)
                     {
                         tariff.Add(ProductFactory.CreateProductFromRow(sheet, tariff, i));
                     }
 
 
-                    var resultFilter = tariff.OrderByDescending(t => t.Pricing.Discount).ThenBy(t => t.Localization.EmbarkDate);
+                    var resumoPrecos = tariff
+                    .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate });
 
 
-                    var take = resultFilter.Take(qtdOffers).Select(t => t);
 
-                    foreach (var item in take)
+                    // 1. Agrupa por navio e data
+                    // 2. Em cada grupo, ordena por Preço e pega o menor
+                    // 3. (Opcional) Ordena o resultado, por exemplo, por Preço crescente
+                    // 4. Pega a quantidade de ofertas que o usuário digitou
+                    var cheapestByShipAndDate = tariff
+                        .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate })
+                        .Select(
+                                g => g.OrderByDescending(p => p.Pricing.Discount)
+                                .ThenBy(p=>p.Pricing.TotalFarePerPax)
+                                .First()
+                              )                           
+                        .Take(qtdOffers)                               
+                        .ToList();
+
+                    List<Product> listFiltered = new List<Product>();
+
+
+                    int row = 2;
+                    foreach (var item in cheapestByShipAndDate)
                     {
-                        Console.WriteLine(item);
-                        Console.WriteLine();
+                            sheet.Cells[row, 1].Value = item.ShipName;
+                            sheet.Cells[row, 2].Value = item.ProductName;
+                            sheet.Cells[row, 3].Value = item.CabinCategory;
+                            sheet.Cells[row, 4].Value = item.CabinClass;
+                            sheet.Cells[row, 5].Value = item.Pricing.Discount;
+                            sheet.Cells[row, 6].Value = item.Localization.EmbarkDate.ToString("dd/MM/yyyy");
+                            sheet.Cells[row, 7].Value = item.Pricing.FromToValue;
+
+                        //colocar o restos das colunas
+                            row++;
+                        listFiltered.Add(item);
                     }
 
+                    var sheetFiltered = package.Workbook.Worksheets.Add("FilteredData");
 
 
 
