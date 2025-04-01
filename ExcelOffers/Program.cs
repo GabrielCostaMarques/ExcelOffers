@@ -14,7 +14,7 @@ namespace ExcelOffers
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios R11 - V5.xlsx")))
+            using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios R11 - V6.xlsx")))
             {
                 try
                 {
@@ -24,16 +24,24 @@ namespace ExcelOffers
                     int qtdOffers = int.Parse(Console.ReadLine());
 
                     var sheet = packeage.Workbook.Worksheets[0];
-                    
+                    int rowCount = sheet.Dimension.Rows;
+
+                    ProductFactory factory = new ProductFactory();
 
 
-                    for (int i = 2; i < qtdOffers; i++)
+                    for (int i = 2; i <= rowCount; i++)
                     {
                         tariff.Add(ProductFactory.CreateProductFromRow(sheet, tariff, i));
-                    }
+                    }   
 
 
-                    var resultFilter = tariff.OrderByDescending(t => t.Pricing.Discount).ThenBy(t => t.Localization.EmbarkDate);
+                    Console.WriteLine("Finalizou a leitura do Excel.");
+
+                    var resultFilter = tariff
+                        .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate })
+                        .Select(g => g.OrderByDescending(p => p.Pricing.Discount).ThenBy(p => p.Pricing.TotalFarePerPax).First())
+                        .Take(qtdOffers)
+                        .ToList();
 
 
                     var take = resultFilter.Take(qtdOffers).Select(t => t);

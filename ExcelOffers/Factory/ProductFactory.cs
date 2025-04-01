@@ -1,6 +1,7 @@
 ﻿using ExcelOffers.Entities;
 using ExcelOffers.Domain;
 using OfficeOpenXml;
+using System.Globalization;
 
 namespace ExcelOffers.Factory
 {
@@ -22,7 +23,11 @@ namespace ExcelOffers.Factory
 
             decimal fromToValue = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
             decimal fareSalePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
-            double discount = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
+
+            string discountStr = CellValue.GetCellValue(sheet, row, ref col);
+            discountStr = discountStr.Replace("%", ""); // Remove o símbolo de %
+            double discount = double.Parse(discountStr)*100;
+
             decimal nCCFPerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
             decimal portFarePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
             decimal totalFarePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));

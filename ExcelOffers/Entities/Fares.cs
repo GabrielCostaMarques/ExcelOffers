@@ -22,7 +22,7 @@ namespace ExcelOffers.Entities
             PortFarePerPax = portFarePerPax;
             TotalFarePerPax = totalFarePerPax;
             FromToValue = fromToValue;
-            Discount = discount*100;
+            Discount = discount;
         }
 
         public Fares(decimal totalFarePerPax, decimal fromToValue, double discount)
