@@ -6,6 +6,7 @@ namespace ExcelOffers.Factory
 {
     internal class ProductFactory
     {
+        
         public static Product CreateProductFromRow(ExcelWorksheet sheet, List<Product> products, int row)
         {
             int col = 1;

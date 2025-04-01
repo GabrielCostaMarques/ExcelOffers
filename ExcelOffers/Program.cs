@@ -27,16 +27,14 @@ namespace ExcelOffers
                     var sheet = package.Workbook.Worksheets[0];
                     int rowCount = sheet.Dimension.Rows;
 
+                    ProductFactory factory = new ProductFactory();
 
-                   
+
                     for (int i = 2; i <= rowCount; i++)
                     {
                         tariff.Add(ProductFactory.CreateProductFromRow(sheet, tariff, i));
                     }
-
-
-                    var resumoPrecos = tariff
-                    .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate });
+                    Console.WriteLine("Finalizou a leitura do Excel.");
 
 
 
@@ -46,48 +44,50 @@ namespace ExcelOffers
                     // 4. Pega a quantidade de ofertas que o usuário digitou
                     var cheapestByShipAndDate = tariff
                         .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate })
-                        .Select(
-                                g => g.OrderByDescending(p => p.Pricing.Discount)
-                                .ThenBy(p=>p.Pricing.TotalFarePerPax)
-                                .First()
-                              )                           
-                        .Take(qtdOffers)                               
+                        .Select(g => g.OrderByDescending(p => p.Fares.Discount).ThenBy(p => p.Fares.TotalFarePerPax).First())
+                        .Take(qtdOffers)
                         .ToList();
 
-                    List<Product> listFiltered = new List<Product>();
 
+                    var sheetFiltered = package.Workbook.Worksheets.Add($"FilteredData - {DateTime.Now.ToString("dd/MM/yyyy")}");
 
-                    int row = 2;
-                    foreach (var item in cheapestByShipAndDate)
+                    try
                     {
-                            sheet.Cells[row, 1].Value = item.ShipName;
-                            sheet.Cells[row, 2].Value = item.ProductName;
-                            sheet.Cells[row, 3].Value = item.CabinCategory;
-                            sheet.Cells[row, 4].Value = item.CabinClass;
-                            sheet.Cells[row, 5].Value = item.Pricing.Discount;
-                            sheet.Cells[row, 6].Value = item.Localization.EmbarkDate.ToString("dd/MM/yyyy");
-                            sheet.Cells[row, 7].Value = item.Pricing.FromToValue;
+                        int row = 2;
+                        foreach (var item in cheapestByShipAndDate)
+                        {
+                            sheetFiltered.Cells["A2"].LoadFromCollection(cheapestByShipAndDate, false);
 
-                        //colocar o restos das colunas
+                            sheetFiltered.Cells[row, 8].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 9].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 10].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 11].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 12].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 13].Style.Numberformat.Format = "0";
                             row++;
-                        listFiltered.Add(item);
+                        }
+                        sheetFiltered.Cells[sheetFiltered.Dimension.Address].AutoFitColumns();
+
+                        package.Save();
+
                     }
-
-                    var sheetFiltered = package.Workbook.Worksheets.Add("FilteredData");
-
-
-
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Erro ao adicionar na tabela");
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e.StackTrace);
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Não foi possivel ler o arquivo " + e.Message);
+                    Console.WriteLine(e.StackTrace);
                 }
-
             }
         }
+
+
     }
-
-
 }
 
 
