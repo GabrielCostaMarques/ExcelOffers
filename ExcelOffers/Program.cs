@@ -2,6 +2,7 @@
 using System.Data;
 using ExcelOffers.Entities;
 using ExcelOffers.Factory;
+using ExcelOffers.Filters;
 using OfficeOpenXml;
 
 
@@ -43,29 +44,56 @@ namespace ExcelOffers
                         .Take(qtdOffers)
                         .ToList();
 
+                    // 1. Agrupa por navio e data
+                    // 2. Em cada grupo, ordena por Preço e pega o menor
+                    // 3. (Opcional) Ordena o resultado, por exemplo, por Preço crescente
+                    // 4. Pega a quantidade de ofertas que o usuário digitou
+                    var cheapestByShipAndDate = tariff
+                        .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate })
+                        .Select(g => g.OrderByDescending(p => p.Fares.Discount).ThenBy(p => p.Fares.TotalFarePerPax).First())
+                        .Take(qtdOffers)
+                        .ToList();
 
-                    var take = resultFilter.Take(qtdOffers).Select(t => t);
 
-                    foreach (var item in take)
+                    var sheetFiltered = package.Workbook.Worksheets.Add($"FilteredData - {DateTime.Now.ToString("dd/MM/yyyy")}");
+
+                    try
                     {
-                        Console.WriteLine(item);
-                        Console.WriteLine();
+                        int row = 2;
+                        foreach (var item in cheapestByShipAndDate)
+                        {
+                            sheetFiltered.Cells["A2"].LoadFromCollection(cheapestByShipAndDate, false);
+
+                            sheetFiltered.Cells[row, 8].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 9].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 10].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 11].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 12].Style.Numberformat.Format = "0";
+                            sheetFiltered.Cells[row, 13].Style.Numberformat.Format = "0";
+                            row++;
+                        }
+                        sheetFiltered.Cells[sheetFiltered.Dimension.Address].AutoFitColumns();
+
+                        package.Save();
+
                     }
-
-
-
-
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Erro ao adicionar na tabela");
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e.StackTrace);
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Não foi possivel ler o arquivo " + e.Message);
+                    Console.WriteLine(e.StackTrace);
                 }
-
             }
         }
+
+
     }
-
-
 }
 
 
