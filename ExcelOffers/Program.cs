@@ -27,11 +27,11 @@ namespace ExcelOffers
                     var sheet = packeage.Workbook.Worksheets[0];
                     int rowCount = sheet.Dimension.Rows;
 
-
+                    ProductFactory factory = new();
 
                     for (int i = 2; i <= rowCount; i++)
                     {
-                        tariff.Add(ProductFactory.CreateProductFromRow(sheet, tariff, i));
+                        ProductFactory.CreateProductFromRow(sheet, tariff, i);
                     }   
 
 

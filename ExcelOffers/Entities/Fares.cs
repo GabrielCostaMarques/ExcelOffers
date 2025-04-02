@@ -27,6 +27,5 @@ namespace ExcelOffers.Entities
             FromToValue = fromToValue;
             Discount = discount;
         }
-
     }
 }

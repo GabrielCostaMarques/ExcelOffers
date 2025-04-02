@@ -1,14 +1,13 @@
 ﻿using ExcelOffers.Entities;
 using ExcelOffers.Domain;
 using OfficeOpenXml;
-using System.Globalization;
 
 namespace ExcelOffers.Factory
 {
     internal class ProductFactory
     {
-        
-        public static Product CreateProductFromRow(ExcelWorksheet sheet, List<Product> products, int row)
+
+        public static void CreateProductFromRow(ExcelWorksheet sheet, List<Product> products, int row)
         {
             int col = 1;
 
@@ -19,15 +18,9 @@ namespace ExcelOffers.Factory
             DateTime embarkDate = DateTime.Parse(CellValue.GetCellValue(sheet, row, ref col));
             string cabinCategory = CellValue.GetCellValue(sheet, row, ref col);
             string cabinClass = CellValue.GetCellValue(sheet, row, ref col);
-
-
-
             decimal fromToValue = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
             decimal fareSalePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
-
-            double discount = double.Parse( CellValue.GetCellValue(sheet, row, ref col))*100;
-           
-
+            double discount = double.Parse(CellValue.GetCellValue(sheet, row, ref col)) * 100;
             decimal nCCFPerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
             decimal portFarePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
             decimal totalFarePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
@@ -50,11 +43,10 @@ namespace ExcelOffers.Factory
                     destinyProduct,
                     embarkDate
                 )
-            ); 
+            );
 
-            return product;
-
-
+            products.Add( product );
         }
+
     }
 }
