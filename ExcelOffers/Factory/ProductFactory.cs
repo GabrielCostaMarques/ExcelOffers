@@ -25,9 +25,8 @@ namespace ExcelOffers.Factory
             decimal fromToValue = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
             decimal fareSalePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
 
-            string discountStr = CellValue.GetCellValue(sheet, row, ref col);
-            discountStr = discountStr.Replace("%", ""); // Remove o símbolo de %
-            double discount = double.Parse(discountStr)*100;
+            double discount = double.Parse( CellValue.GetCellValue(sheet, row, ref col))*100;
+           
 
             decimal nCCFPerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
             decimal portFarePerPax = decimal.Parse(CellValue.GetCellValue(sheet, row, ref col));
@@ -51,9 +50,7 @@ namespace ExcelOffers.Factory
                     destinyProduct,
                     embarkDate
                 )
-            );
-
-            products.Add(product);
+            ); 
 
             return product;
 

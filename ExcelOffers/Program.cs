@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Security.Cryptography;
 using ExcelOffers.Entities;
 using ExcelOffers.Factory;
-using ExcelOffers.Filters;
 using OfficeOpenXml;
 
 
@@ -27,7 +27,6 @@ namespace ExcelOffers
                     var sheet = packeage.Workbook.Worksheets[0];
                     int rowCount = sheet.Dimension.Rows;
 
-                    ProductFactory factory = new ProductFactory();
 
 
                     for (int i = 2; i <= rowCount; i++)
@@ -38,31 +37,24 @@ namespace ExcelOffers
 
                     Console.WriteLine("Finalizou a leitura do Excel.");
 
-                    var resultFilter = tariff
-                        .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate })
-                        .Select(g => g.OrderByDescending(p => p.Pricing.Discount).ThenBy(p => p.Pricing.TotalFarePerPax).First())
-                        .Take(qtdOffers)
-                        .ToList();
 
-                    // 1. Agrupa por navio e data
-                    // 2. Em cada grupo, ordena por Preço e pega o menor
-                    // 3. (Opcional) Ordena o resultado, por exemplo, por Preço crescente
-                    // 4. Pega a quantidade de ofertas que o usuário digitou
-                    var cheapestByShipAndDate = tariff
-                        .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate })
-                        .Select(g => g.OrderByDescending(p => p.Fares.Discount).ThenBy(p => p.Fares.TotalFarePerPax).First())
-                        .Take(qtdOffers)
-                        .ToList();
+                    var sortedList = tariff
+                      .OrderByDescending(p => p.Fares.Discount)
+                      .ThenBy(p => p.Fares.TotalFarePerPax) 
+                      .GroupBy(p => new { p.ShipName, p.Localization.EmbarkDate }) 
+                      .Select(g => g.First()) 
+                      .Take(qtdOffers) 
+                      .ToList();
 
 
-                    var sheetFiltered = package.Workbook.Worksheets.Add($"FilteredData - {DateTime.Now.ToString("dd/MM/yyyy")}");
+                    var sheetFiltered = packeage.Workbook.Worksheets.Add($"FilteredData - {DateTime.Now.ToString("dd/MM/yyyy")}");
 
                     try
                     {
                         int row = 2;
-                        foreach (var item in cheapestByShipAndDate)
+                        foreach (var item in sortedList)
                         {
-                            sheetFiltered.Cells["A2"].LoadFromCollection(cheapestByShipAndDate, false);
+                            sheetFiltered.Cells["A2"].LoadFromCollection(sortedList, false);
 
                             sheetFiltered.Cells[row, 8].Style.Numberformat.Format = "0";
                             sheetFiltered.Cells[row, 9].Style.Numberformat.Format = "0";
@@ -74,7 +66,7 @@ namespace ExcelOffers
                         }
                         sheetFiltered.Cells[sheetFiltered.Dimension.Address].AutoFitColumns();
 
-                        package.Save();
+                        packeage.Save();
 
                     }
                     catch (Exception e)

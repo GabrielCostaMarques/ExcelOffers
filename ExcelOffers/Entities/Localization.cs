@@ -12,6 +12,7 @@ namespace ExcelOffers.Entities
         public string DestinyProduct { get; set; }
         public DateTime EmbarkDate { get; set; }
 
+        public Localization() { }
         public Localization(string portEmbarkDesembark, string destinyProduct, DateTime embarkDate)
         {
             PortEmbarkDesembark = portEmbarkDesembark;

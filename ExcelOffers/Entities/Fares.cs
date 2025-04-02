@@ -16,6 +16,8 @@ namespace ExcelOffers.Entities
         public decimal FromToValue { get; set; }
         public double Discount { get; set; }
 
+
+        public Fares() { }
         public Fares(decimal fareSalePerPax, decimal nCCFPerPax, decimal portFarePerPax, decimal totalFarePerPax, decimal fromToValue, double discount)
         {
             FareSalePerPax = fareSalePerPax;
@@ -26,11 +28,5 @@ namespace ExcelOffers.Entities
             Discount = discount;
         }
 
-        public Fares(decimal totalFarePerPax, decimal fromToValue, double discount)
-        {
-            TotalFarePerPax = totalFarePerPax;
-            FromToValue = fromToValue;
-            Discount = discount;
-        }
     }
 }
