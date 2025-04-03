@@ -28,21 +28,35 @@ namespace ExcelOffers.Entities
         }
 
 
-        public override string ToString()
-        {
-            return ShipName
-                + " - "
-                + ProductName
-                + " - "
-                + CabinClass
-                + " - "
-                + Localization.EmbarkDate
-                + " - "
-                + Fares.Discount.ToString("F0", CultureInfo.InvariantCulture)
-                + " - "
-                + Fares.FromToValue.ToString("F2", CultureInfo.InvariantCulture)
-                + " - "
-                + Fares.TotalFarePerPax.ToString("F2", CultureInfo.InvariantCulture);
-        }
+        //public override string ToString()
+        //{
+        //    return ShipName
+        //        + ","
+        //        + ProductName
+        //        + ","
+        //        + Localization.PortEmbarkDesembark
+        //        + ","
+        //        + Localization.DestinyProduct
+        //        + ","
+        //        + Localization.DestinyProduct
+        //        + ","
+        //        + Localization.EmbarkDate
+        //        + ","
+        //        + CabinCategory
+        //        + ","
+        //        + CabinClass
+        //        + ","
+        //        + Fares.FromToValue.ToString("F0", CultureInfo.InvariantCulture)
+        //        + ","
+        //        + Fares.FareSalePerPax.ToString("F0", CultureInfo.InvariantCulture)
+        //        + ","
+        //        + Fares.Discount.ToString("F0", CultureInfo.InvariantCulture)
+        //        + ","
+        //        + Fares.NCCFPerPax.ToString("F0", CultureInfo.InvariantCulture)
+        //        + ","
+        //        + Fares.PortFarePerPax.ToString("F0", CultureInfo.InvariantCulture)
+        //        + ","
+        //        + Fares.TotalFarePerPax.ToString("F0", CultureInfo.InvariantCulture);
+        //}
     }
 }

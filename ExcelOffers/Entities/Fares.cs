@@ -9,16 +9,16 @@ namespace ExcelOffers.Entities
 {
     internal class Fares
     {
-        public decimal FareSalePerPax { get; set; }
-        public decimal NCCFPerPax { get; set; }
-        public decimal PortFarePerPax { get; set; }
-        public decimal TotalFarePerPax { get; set; }
-        public decimal FromToValue { get; set; }
+        public double FareSalePerPax { get; set; }
+        public double NCCFPerPax { get; set; }
+        public double PortFarePerPax { get; set; }
+        public double TotalFarePerPax { get; set; }
+        public double FromToValue { get; set; }
         public double Discount { get; set; }
 
 
         public Fares() { }
-        public Fares(decimal fareSalePerPax, decimal nCCFPerPax, decimal portFarePerPax, decimal totalFarePerPax, decimal fromToValue, double discount)
+        public Fares(double fareSalePerPax, double nCCFPerPax, double portFarePerPax, double totalFarePerPax, double fromToValue, double discount)
         {
             FareSalePerPax = fareSalePerPax;
             NCCFPerPax = nCCFPerPax;

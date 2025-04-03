@@ -6,10 +6,6 @@ namespace ExcelOffers.Domain
     {
         public static string GetCellValue(ExcelWorksheet sheet, int row, ref int column)
         {
-            if (true)
-            {
-                
-            }
             string value = sheet.Cells[row, column].Value?.ToString() ?? "Sem dados";
             column++;
 
