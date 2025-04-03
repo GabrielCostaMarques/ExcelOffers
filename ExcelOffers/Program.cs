@@ -32,8 +32,8 @@ namespace ExcelOffers
 
                     for (int i = 2; i <= rowCount; i++)
                     {
-                        ProductFactory.CreateProductFromRow(sheet, tariff, i); 
-                    }   
+                        ProductFactory.CreateProductFromRow(sheet, tariff, i);
+                    }
 
                     Filter filter = new Filter();
                     var sortedOffers = filter.FilterTariff(tariff, qtdOffers);
@@ -43,7 +43,16 @@ namespace ExcelOffers
                     putNewSheet.NewSheetOffer(packeage, sortedOffers);
 
 
+                    Console.WriteLine("---------------------------");
+                    Console.WriteLine("---------------------------");
+                    Console.WriteLine();
+                    Console.WriteLine("Tabela realizada com Sucesso!");
+                    Console.WriteLine(); ;
+                    Console.WriteLine("---------------------------");
+                    Console.WriteLine("---------------------------");
                 }
+
+
                 catch (Exception e)
                 {
                     Console.WriteLine("Não foi possivel ler o arquivo " + e.Message);
