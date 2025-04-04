@@ -11,5 +11,15 @@ namespace ExcelOffers.Domain
 
             return value;
         }
+
+        public void SetCellValue(ExcelWorksheet sheet, int row, int col, object value, string format = null)
+        {
+            var cell = sheet.Cells[row, col];
+            cell.Value = value;
+            if (!string.IsNullOrEmpty(format))
+            {
+                cell.Style.Numberformat.Format = format;
+            }
+        }
     }
 }

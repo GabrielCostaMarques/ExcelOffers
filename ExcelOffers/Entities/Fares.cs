@@ -27,5 +27,22 @@ namespace ExcelOffers.Entities
             FromToValue = fromToValue;
             Discount = discount;
         }
+
+        public double DownPaymentB2B()
+        {
+            double downPayment = FareSalePerPax * 0.25;
+            return downPayment;
+        }
+        public double InstallmentsB2B()
+        {
+            double installment =( TotalFarePerPax - DownPaymentB2B())/10;
+            return installment;
+        }
+        
+        public double InstallmentsB2C()
+        {
+            double installment = TotalFarePerPax/10;
+            return installment;
+        }
     }
 }
