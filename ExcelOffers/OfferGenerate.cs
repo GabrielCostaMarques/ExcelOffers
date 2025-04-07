@@ -2,8 +2,10 @@
 using ExcelOffers.Factory;
 using ExcelOffers.Services;
 using OfficeOpenXml;
+using OfficeOpenXml.Table;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace ExcelOffers
 
             using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios\Bloqueios R11 - V5.xlsx")))
             {
-                Filter filter = new Filter();
+                FilterFactory filter = new FilterFactory();
                 List<Product> tariff = new();
                 PutNewSheet putNewSheet = new PutNewSheet();
 

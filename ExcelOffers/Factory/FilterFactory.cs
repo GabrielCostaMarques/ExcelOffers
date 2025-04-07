@@ -2,7 +2,7 @@
 
 namespace ExcelOffers.Factory
 {
-    internal class Filter
+    internal class FilterFactory
     {
         public List<Product> FilterTariff(List<Product> list, int takeOffers)
         {
