@@ -22,7 +22,6 @@ namespace ExcelOffers
 
                 try
                 {
-
                     Console.Write("How Many offers: ");
                     int qtdOffers = int.Parse(Console.ReadLine());
 
@@ -35,18 +34,8 @@ namespace ExcelOffers
                         ProductFactory.CreateProductFromRow(sheet, tariff, i);
                     }
 
-
                     var sortedOffers = filter.FilterTariff(tariff, qtdOffers);
                     putNewSheet.NewSheetOffer(packeage, sortedOffers);
-
-
-                    Console.WriteLine("---------------------------");
-                    Console.WriteLine("---------------------------");
-                    Console.WriteLine();
-                    Console.WriteLine("Tabela realizada com Sucesso!");
-                    Console.WriteLine(); ;
-                    Console.WriteLine("---------------------------");
-                    Console.WriteLine("---------------------------");
                 }
 
 

@@ -13,7 +13,7 @@ namespace ExcelOffers.Services
             CellValue cellValue = new CellValue();
             try
             {
-                var newSheet = packeage.Workbook.Worksheets.Add($"FilteredData - {DateTime.Now.ToString("dd/MM/yyyy")}");
+                var newSheet = packeage.Workbook.Worksheets.Add($"FilteredData - {DateTime.Now.ToString("dd-MM-yyyy")}");
                 int row = 2;
                 foreach (var item in listFiltered)
                 {
@@ -47,6 +47,7 @@ namespace ExcelOffers.Services
                 Console.WriteLine("Erro ao adicionar na tabela");
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
+                return;
             }
         }
     }

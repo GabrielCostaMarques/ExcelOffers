@@ -1,6 +1,6 @@
 ﻿using ExcelOffers.Entities;
 
-namespace ExcelOffers
+namespace ExcelOffers.Factory
 {
     internal class Filter
     {
