@@ -16,7 +16,7 @@ namespace ExcelOffers
     {
         public void GenerateOffers() {
 
-            using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios\Bloqueios R11 - V5.xlsx")))
+            using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios\Bloqueios R11 - V7.xlsx")))
             {
                 FilterFactory filter = new FilterFactory();
                 List<Product> tariff = new();

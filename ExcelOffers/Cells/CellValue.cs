@@ -18,6 +18,7 @@ namespace ExcelOffers.Domain
             cell.Value = value;
             col++;
 
+           cell.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
             if (!string.IsNullOrEmpty(format))
             {
                 cell.Style.Numberformat.Format = format;

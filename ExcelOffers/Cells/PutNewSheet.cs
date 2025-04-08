@@ -57,10 +57,10 @@ namespace ExcelOffers.Services
                     cellValue.SetCellValue(newSheet, row, ref column, item.CabinCategory);
                     cellValue.SetCellValue(newSheet, row, ref column, item.CabinClass);
                     cellValue.SetCellValue(newSheet, row, ref column, item.Fares.FromToValue, "#,##0");
-                    cellValue.SetCellValue(newSheet, row, ref column, item.Fares.FareSalePerPax, "#,##0");
+                    cellValue.SetCellValue(newSheet, row, ref column, item.Fares.FareSalePerPax, "#,##0.00");
                     cellValue.SetCellValue(newSheet, row, ref column, item.Fares.Discount, "0");
-                    cellValue.SetCellValue(newSheet, row, ref column, item.Fares.NCCFPerPax, "#,##0");
-                    cellValue.SetCellValue(newSheet, row, ref column, item.Fares.PortFarePerPax, "#,##0");
+                    cellValue.SetCellValue(newSheet, row, ref column, item.Fares.NCCFPerPax, "#,##0.00");
+                    cellValue.SetCellValue(newSheet, row, ref column, item.Fares.PortFarePerPax, "#,##0.00");
                     cellValue.SetCellValue(newSheet, row, ref column, item.Fares.TotalFarePerPax, "#,##0");
                     cellValue.SetCellValue(newSheet, row, ref column, item.Fares.DownPaymentB2B(), "#,##0.00");
                     cellValue.SetCellValue(newSheet, row, ref column, item.Fares.InstallmentsB2B(), "#,##0.00");
