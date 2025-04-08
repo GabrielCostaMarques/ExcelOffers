@@ -53,7 +53,7 @@ namespace ExcelOffers.Services
                     cellValue.SetCellValue(newSheet, row, ref column, item.ProductName);
                     cellValue.SetCellValue(newSheet, row, ref column, item.Localization.PortEmbarkDesembark);
                     cellValue.SetCellValue(newSheet, row, ref column, item.Localization.DestinyProduct);
-                    cellValue.SetCellValue(newSheet, row, ref column, item.Localization.EmbarkDate.ToString("dd/MM/yyyy"));
+                    cellValue.SetCellValue(newSheet, row, ref column, item.Localization.EmbarkDate, "dd/MM/yyyy");
                     cellValue.SetCellValue(newSheet, row, ref column, item.CabinCategory);
                     cellValue.SetCellValue(newSheet, row, ref column, item.CabinClass);
                     cellValue.SetCellValue(newSheet, row, ref column, item.Fares.FromToValue, "#,##0");

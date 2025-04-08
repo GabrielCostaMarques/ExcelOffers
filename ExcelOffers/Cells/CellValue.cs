@@ -15,14 +15,27 @@ namespace ExcelOffers.Domain
         public void SetCellValue(ExcelWorksheet sheet, int row, ref int col, object value, string format = null)
         {
             var cell = sheet.Cells[row, col];
-            cell.Value = value;
+
+            // Força o valor como DateTime se ele for string em formato de data
+            if (value is string strVal && DateTime.TryParse(strVal, out var dateVal))
+            {
+                cell.Value = dateVal;
+            }
+            else
+            {
+                cell.Value = value;
+            }
+
             col++;
 
-           cell.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+            cell.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
             if (!string.IsNullOrEmpty(format))
             {
                 cell.Style.Numberformat.Format = format;
             }
         }
+
     }
 }
+
