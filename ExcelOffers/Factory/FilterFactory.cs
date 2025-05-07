@@ -1,4 +1,4 @@
-﻿using ExcelOffers.Entities;
+﻿using ExcelOffers.ExcelOffers.Domain.Entities;
 
 namespace ExcelOffers.Factory
 {

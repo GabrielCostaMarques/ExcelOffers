@@ -1,4 +1,5 @@
-﻿using ExcelOffers.Entities;
+﻿using ExcelOffers.ExcelOffers.Domain.Entities;
+using ExcelOffers.ExcelOffers.Infrastructure;
 using ExcelOffers.Factory;
 using ExcelOffers.Services;
 using OfficeOpenXml;
@@ -9,18 +10,18 @@ namespace ExcelOffers
     {
         public void GenerateOffers() {
 
-            using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios\Bloqueios R11 - V12.xlsx")))
+            using (var package = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios\Bloqueios R11 - V12.xlsx")))
             {
                 FilterFactory filter = new FilterFactory();
                 List<Product> tariff = new();
-                PutNewSheet putNewSheet = new PutNewSheet();
+                ExcelProductWriter putNewSheet = new ExcelProductWriter();
 
                 try
                 {
                     Console.Write("How Many offers: ");
                     int qtdOffers = int.Parse(Console.ReadLine());
 
-                    var sheet = packeage.Workbook.Worksheets[0];
+                    var sheet = package.Workbook.Worksheets[0];
                     int rowCount = sheet.Dimension.Rows;
 
 
@@ -30,7 +31,7 @@ namespace ExcelOffers
                     }
 
                     var sortedOffers = filter.FilterTariff(tariff, qtdOffers);
-                    putNewSheet.NewSheetOffer(packeage, sortedOffers);
+                    putNewSheet.NewSheetOffer(package, sortedOffers);
                 }
 
 

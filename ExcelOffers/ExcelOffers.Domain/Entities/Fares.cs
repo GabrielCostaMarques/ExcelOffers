@@ -1,4 +1,4 @@
-﻿namespace ExcelOffers.Entities
+﻿namespace ExcelOffers.ExcelOffers.Domain.Entities
 {
     internal class Fares
     {
@@ -7,7 +7,7 @@
         public double PortFarePerPax { get; set; }
         public double ServiceFarePerPax { get; set; }
         public double TotalFarePerPax { get; set; }
-        public double  FareFitPerPax { get; set; }
+        public double FareFitPerPax { get; set; }
         public double FromToValue { get; set; }
         public double Discount { get; set; }
 
@@ -32,13 +32,13 @@
         }
         public double InstallmentsB2B()
         {
-            double installment =( TotalFarePerPax - DownPaymentB2B())/10;
+            double installment = (TotalFarePerPax - DownPaymentB2B()) / 10;
             return installment;
         }
-        
+
         public double InstallmentsB2C()
         {
-            double installment = TotalFarePerPax/10;
+            double installment = TotalFarePerPax / 10;
             return installment;
         }
     }

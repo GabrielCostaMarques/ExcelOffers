@@ -1,8 +1,8 @@
 ﻿using ExcelOffers.Domain;
-using ExcelOffers.Entities;
+using ExcelOffers.ExcelOffers.Domain.Entities;
 using OfficeOpenXml;
 
-namespace ExcelOffers.Factory
+namespace ExcelOffers.ExcelOffers.Infrastructure
 {
     internal class ProductFactory
     {
@@ -21,7 +21,7 @@ namespace ExcelOffers.Factory
             double fareFitPerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double fromToValue = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double fareSalePerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
-            double discount = double.Parse(CellValue.GetCellValue(sheet, row, ref col))*100;
+            double discount = double.Parse(CellValue.GetCellValue(sheet, row, ref col)) * 100;
             double nCCFPerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double portFarePerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double serviceFarePerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));

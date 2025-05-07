@@ -1,4 +1,4 @@
-﻿namespace ExcelOffers.Entities
+﻿namespace ExcelOffers.ExcelOffers.Domain.Entities
 {
     internal class Localization
     {

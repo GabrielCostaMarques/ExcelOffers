@@ -1,13 +1,13 @@
 ﻿using ExcelOffers.Domain;
-using ExcelOffers.Entities;
+using ExcelOffers.ExcelOffers.Domain.Entities;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
 
 namespace ExcelOffers.Services
 {
-    internal class PutNewSheet
+    internal class ExcelProductWriter
     {
-        public void NewSheetOffer(ExcelPackage packeage, List<Product> listFiltered)
+        public void NewSheetOffer(ExcelPackage package, List<Product> listFiltered)
         {
 
             CellValue cellValue = new CellValue();
@@ -15,7 +15,7 @@ namespace ExcelOffers.Services
             {
 
 
-                var newSheet = packeage.Workbook.Worksheets.Add($"FilteredData - {DateTime.Now.ToString("dd-MM-yyyy")}");
+                var newSheet = package.Workbook.Worksheets.Add($"FilteredData - {DateTime.Now.ToString("dd-MM-yyyy")}");
 
 
                 newSheet.Cells[1, 1].Value = "Nome do Navio";
@@ -76,11 +76,13 @@ namespace ExcelOffers.Services
                 var dataRange = newSheet.Cells[tableRange.Address];
 
                 var tabela = newSheet.Tables.Add(dataRange, "MinhaTabela");
+
+
                 tabela.TableStyle = TableStyles.Medium9;
                 tabela.ShowHeader = true;
 
 
-                packeage.Save();
+                package.Save();
 
             }
             catch (Exception e)
