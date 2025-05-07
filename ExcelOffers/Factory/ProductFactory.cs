@@ -1,8 +1,6 @@
-﻿using ExcelOffers.Entities;
+﻿using ExcelOffers.Domain;
+using ExcelOffers.Entities;
 using OfficeOpenXml;
-using ExcelOffers.Services;
-using ExcelOffers.Domain;
-using System.Globalization;
 
 namespace ExcelOffers.Factory
 {
@@ -20,11 +18,13 @@ namespace ExcelOffers.Factory
             DateTime embarkDate = DateTime.Parse(CellValue.GetCellValue(sheet, row, ref col));
             string cabinCategory = CellValue.GetCellValue(sheet, row, ref col);
             string cabinClass = CellValue.GetCellValue(sheet, row, ref col);
+            double fareFitPerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double fromToValue = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double fareSalePerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double discount = double.Parse(CellValue.GetCellValue(sheet, row, ref col))*100;
             double nCCFPerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double portFarePerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
+            double serviceFarePerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
             double totalFarePerPax = double.Parse(CellValue.GetCellValue(sheet, row, ref col));
 
             Product product = new Product(
@@ -36,7 +36,9 @@ namespace ExcelOffers.Factory
                     fareSalePerPax,
                     nCCFPerPax,
                     portFarePerPax,
+                    serviceFarePerPax,
                     totalFarePerPax,
+                    fareFitPerPax,
                     fromToValue,
                     discount
                 ),

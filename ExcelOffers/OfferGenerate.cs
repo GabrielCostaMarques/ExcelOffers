@@ -2,13 +2,6 @@
 using ExcelOffers.Factory;
 using ExcelOffers.Services;
 using OfficeOpenXml;
-using OfficeOpenXml.Table;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExcelOffers
 {
@@ -16,7 +9,7 @@ namespace ExcelOffers
     {
         public void GenerateOffers() {
 
-            using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios\Bloqueios R11 - V7.xlsx")))
+            using (var packeage = new ExcelPackage(new FileInfo(@"C:\Users\gmarques\Downloads\Bloqueios\Bloqueios R11 - V12.xlsx")))
             {
                 FilterFactory filter = new FilterFactory();
                 List<Product> tariff = new();

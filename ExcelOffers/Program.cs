@@ -1,10 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Security.Cryptography;
-using ExcelOffers.Entities;
-using ExcelOffers.Factory;
-using ExcelOffers.Services;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 
 
 namespace ExcelOffers
